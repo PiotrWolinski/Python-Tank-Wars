@@ -1,6 +1,7 @@
 import pygame
 import sys 
 from tank_class import Tank
+from projectile import Projectile
 
 pygame.init()
 
@@ -25,12 +26,22 @@ while running:
 
     if pressed[pygame.K_UP]:
         tank.move(Tank.UP)
+        if pressed[pygame.K_SPACE]:
+            tank.shoot()
     elif pressed[pygame.K_RIGHT]:
         tank.move(Tank.RIGHT)
+        if pressed[pygame.K_SPACE]:
+            tank.shoot()
     elif pressed[pygame.K_DOWN]:
         tank.move(Tank.DOWN)
+        if pressed[pygame.K_SPACE]:
+            tank.shoot()
     elif pressed[pygame.K_LEFT]:
         tank.move(Tank.LEFT)
+        if pressed[pygame.K_SPACE]:
+            tank.shoot()
+    elif pressed[pygame.K_SPACE]:
+        tank.shoot()
     elif pressed[pygame.K_ESCAPE]:
         running = False
         sys.exit(0)
@@ -38,6 +49,8 @@ while running:
     screen.fill((255, 255, 255))
     
     tank.print_player(screen)
+    tank.move_projectiles()
+    tank.reload(FPS)
 
     pygame.display.update()
     clock.tick(FPS)
